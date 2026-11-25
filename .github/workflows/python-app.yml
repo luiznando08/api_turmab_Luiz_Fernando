@@ -35,7 +35,7 @@ jobs:
         # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
         flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
 
-   image:
+  image:
       needs: build
       runs-on: ubuntu-latest
 
@@ -50,8 +50,26 @@ jobs:
           uses: docker/build-push-action@v7.4.0
           with:
             push: true
-            tags: luiznano08/api_turmab_Luiz_Fernando:latest
-      
+            tags: luiznando08/api_turmab_luiz_fernando:latest
 
+  deploy:
+    needs: image
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Deploy na ec2
+        uses: appleboy/ssh-action@v1.0.3
+  
+        with:
+          host: 98.95.100.69 
+          username: ubuntu
+          key: ${{ secrets.CHAVE }}
+          script: |
+            echo "Acesso liberado"
+            sudo docker pull luiznando08/api_turmab_luiz_fernando:latest
+            sudo docker stop api_turmab_luiz_fernando 2>/dev/null || true
+            sudo docker rm api_turmab_luiz_fernando 2>/dev/null || true
+            sudo docker run --name api_turmab_luiz_fernando -d -p 80:8080 luiznando08/api_turmab_luiz_fernando
+            
 
       
