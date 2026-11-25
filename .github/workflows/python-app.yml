@@ -5,9 +5,9 @@ name: Python application
 
 on:
   push:
-    branches: [ "homologacao" ]
+    branches: [ "main" ]
   pull_request:
-    branches: [ "homologacao" ]
+    branches: [ "main" ]
 
 permissions:
   contents: read
@@ -50,7 +50,7 @@ jobs:
           uses: docker/build-push-action@v7.4.0
           with:
             push: true
-            tags: luiznando08/api_turmab_luiz_fernando:latest
+            tags: luiznando08/api_turmab_luiz_fernando_producao:latest
 
   deploy:
     needs: image
@@ -61,15 +61,15 @@ jobs:
         uses: appleboy/ssh-action@v1.0.3
   
         with:
-          host: 98.95.100.69 
+          host: 44.205.58.228
           username: ubuntu
           key: ${{ secrets.CHAVE }}
           script: |
             echo "Acesso liberado"
-            sudo docker pull luiznando08/api_turmab_luiz_fernando:latest
-            sudo docker stop api_turmab_luiz_fernando 2>/dev/null || true
-            sudo docker rm api_turmab_luiz_fernando 2>/dev/null || true
-            sudo docker run --name api_turmab_luiz_fernando -d -p 80:8080 luiznando08/api_turmab_luiz_fernando
+            sudo docker pull luiznando08/api_turmab_luiz_fernando_producao:latest
+            sudo docker stop api_turmab_luiz_fernando_producao 2>/dev/null || true
+            sudo docker rm api_turmab_luiz_fernando_producao 2>/dev/null || true
+            sudo docker run --name api_turmab_luiz_fernando_producao -d -p 80:8080 luiznando08/api_turmab_luiz_fernando_producao
             
 
       
