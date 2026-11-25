@@ -69,7 +69,7 @@ jobs:
             sudo docker pull luiznando08/api_turmab_luiz_fernando:latest
             sudo docker stop api_turmab_luiz_fernando 2>/dev/null || true
             sudo docker rm api_turmab_luiz_fernando 2>/dev/null || true
-            sudo docker run --name api_turmab_luiz_fernando -d -p 80:80 luiznando08/api_turmab_luiz_fernando
+            sudo docker run --name api_turmab_luiz_fernando -d -p 80:8080 luiznando08/api_turmab_luiz_fernando
             
 
       
