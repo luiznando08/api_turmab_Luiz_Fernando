@@ -50,7 +50,7 @@ jobs:
           uses: docker/build-push-action@v7.4.0
           with:
             push: true
-            tags: luiznano08/api_turmab_Luiz_Fernando:latest
+            tags: luiznando08/api_turmab_luiz_fernando:latest
       
 
 
