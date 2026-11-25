@@ -53,23 +53,23 @@ jobs:
             tags: luiznando08/api_turmab_luiz_fernando:latest
 
   deploy:
-    needs: imagem
+    needs: image
     runs-on: ubuntu-latest
 
     steps:
       - name: Deploy na ec2
-      uses: appleboy/ssh-action@v1.0.3
-
-      with:
-        host: 98.95.100.69 
-        username: ubuntu
-        key: ${{ secrets.CHAVE }}
-        script: |
-          echo "Acesso liberado"
-          sudo docker pull luiznando08/api_turmab_luiz_fernando:latest
-          sudo docker stop api_turmab_luiz_fernando 2>/dev/null || true
-          sudo docker rm api_turmab_luiz_fernando 2>/dev/null || true
-          sudo docker run --name api_turmab_luiz_fernando -d -p 80:80 luiznando08/api_turmab_luiz_fernando
-          
+        uses: appleboy/ssh-action@v1.0.3
+  
+        with:
+          host: 98.95.100.69 
+          username: ubuntu
+          key: ${{ secrets.CHAVE }}
+          script: |
+            echo "Acesso liberado"
+            sudo docker pull luiznando08/api_turmab_luiz_fernando:latest
+            sudo docker stop api_turmab_luiz_fernando 2>/dev/null || true
+            sudo docker rm api_turmab_luiz_fernando 2>/dev/null || true
+            sudo docker run --name api_turmab_luiz_fernando -d -p 80:80 luiznando08/api_turmab_luiz_fernando
+            
 
       
